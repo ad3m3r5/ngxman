@@ -1,12 +1,11 @@
 import express from 'express';
-import {
-  get,
-  read
-} from '../controllers/index.js'
+
+import routes from './routes.js';
+import nginxRoutes from './nginx.js';
 
 const router = express.Router();
 
-router.get('/get', get);
-router.post('/read', read);
+router.use('/', routes);
+router.use('/nginx', nginxRoutes);
 
 export default router;

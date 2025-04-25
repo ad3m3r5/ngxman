@@ -8,8 +8,8 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "docker": "npm run docker-build && npm run docker-run",
-    "docker-run": "docker run --rm -it -p 3000:3000 -p 80:8080 -p 443:8443 -v ./conf:/conf ngxman",
-    "docker-build": "docker build -t ngxman:latest ."
+    "docker-run": "docker run --rm -it --name ngxman -p 3000:3000 -p 8080:8080 -p 8443:8443 -v ./conf:/conf -v ./certs:/certs -v ./logs:/logs ngxman",
+    "docker-build": "docker build -f container/Dockerfile -t ngxman:latest ."
   },
   "author": "ad3m3r5",
   "license": "AGPL-3.0",

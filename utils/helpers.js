@@ -39,7 +39,8 @@ export async function exists(path, type = 'none') {
     return true;
   } catch (error) {
     // returns if it does not exist or isn't accessible
-    logger(error, 'error', 'debug');
+    //logger(error, 'error', 'debug');
+    logger(`${path} does not exist`, 'error', 'debug');
     return false;
   }
 }

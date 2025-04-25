@@ -1,0 +1,73 @@
+# Installing
+
+## Table of Contents
+  - [README](../README.md)
+  - [Environment Variables](#environment-variables)
+  - [Docker](#docker)
+    - [Docker Compose](#docker-compose)
+    - [Docker Run](#docker-run)
+    - [Docker Sidecar](#docker-sidecar)
+  - [npm or yarn](#npm-or-yarn)
+  - [Run as a Service with pm2](#run-as-a-service-with-pm2)
+
+### Environment Variables
+
+All of the variables below are optional, as the default work fine.
+
+- `ADDRESS`
+  - Default: `0.0.0.0`
+- `PORT`
+  - Default: `3000`
+- `LOG_LEVEL`
+  - Default: `INFO`
+  - Options: [Syslog](https://en.wikipedia.org/wiki/Syslog#Severity_level)
+- `NGINX_CONF_DIR`
+  - Default: `/etc/nginx/conf.d`
+- `LOCAL_CONF_DIR`
+  - Default: `/conf`
+
+### Docker
+
+Prep:
+```
+mkdir -p /opt/containers/ngxman/{conf,certs,logs}
+chown -R 101:101 /opt/containers/ngxman/conf
+cd /opt/containers/ngxman
+```
+
+#### Docker Compose
+
+```
+wget https://raw.githubusercontent.com/ad3m3r5/ngxman/refs/heads/main/docs/compose.yaml
+
+docker compose up -d
+```
+
+#### Docker Run
+
+```
+docker run -d --restart=always \
+  --name ngxman -p 80:8080 -p 443:8443 -p 3000:3000 \
+  -e LOG_LEVEL=INFO \
+  -v /opt/containers/ngxman/conf:/conf \
+  ad3m3r5/ngxman:latest
+```
+
+#### Docker Sidecar
+
+Options:
+  1. Edit `nginx.conf` to point to a `conf.d` directory with GID ownership of 101
+    - Common location:
+      - `/etc/nginx/nginx.conf`
+  2. Adjust permissions of the `*.conf* directory to GID ownership of 101
+    - Common locations:
+      - `/etc/nginx/conf.d/`
+      - `/etc/nginx/http.d/`
+
+### Run as a Service with pm2
+
+This varies depending on the OS, however I would recommend checking out [pm2](https://pm2.keymetrics.io/).
+
+The directory for nginx will also need to be specified with environment variables.
+
+Example of pm2 command: `LOG_LEVEL=INFO pm2 start server.js --name ngxman`

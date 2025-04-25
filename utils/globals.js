@@ -9,10 +9,11 @@ global.ADDRESS = process.env.ADDRESS || '0.0.0.0';
 global.PORT = process.env.PORT || 3000;
 global.NGINX_CONF_DIR = process.env.NGINX_CONF_DIR || '/etc/nginx/conf.d';
 global.LOCAL_CONF_DIR = process.env.LOCAL_CONF_DIR || '/conf';
+global.CERTS_DIR = process.env.CERTS_DIR || '/certs';
 
 // allow LOG_LEVEL to be any case
 if ('LOG_LEVEL' in process.env) {
-  // verbosity numbers based on syslog - https://en.wikipedia.org/wiki/Syslog
+  // verbosity numbers based on syslog - https://en.wikipedia.org/wiki/Syslog#Severity_level
   let logLevel = process.env.LOG_LEVEL.trim().toUpperCase();
   if (logLevel === 'EMERGENCY' || logLevel === 'EMERG' || logLevel === 'PANIC' || logLevel === '0') {
     global.LOG_LEVEL = 'EMERGENCY';
@@ -59,6 +60,8 @@ globals.js:
     global.PORT: ${global.PORT}
     global.LOG_LEVEL: ${global.LOG_LEVEL}
     global.NGINX_CONF_DIR: ${global.NGINX_CONF_DIR}
+    global.LOCAL_CONF_DIR: ${global.LOCAL_CONF_DIR}
+    global.CERTS_DIR: ${global.CERTS_DIR}
 `;
 
 logger(globals, 'debug', 'debug');

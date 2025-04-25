@@ -7,7 +7,7 @@ export async function get() {
     const confDirExists = await exists(global.NGINX_CONF_DIR, 'dir');
     if (confDirExists) {
       const files = await readdir(global.NGINX_CONF_DIR);
-      return files;
+      return { success: true, message: files };
     } else {
       throw new Error(`${global.NGINX_CONF_DIR} does not exist`);
     }

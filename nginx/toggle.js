@@ -1,8 +1,8 @@
-import { readFile } from 'fs/promises';
+import { rename } from 'fs/promises';
 import { exists } from '../utils/helpers.js';
 import { logger } from '../utils/logger.js';
 
-export async function read(name) {
+export async function toggle(name) {
   try {
     let filename = `${global.NGINX_CONF_DIR}/${name}.conf`;
     let filenameDisabled = `${global.NGINX_CONF_DIR}/${name}.conf.disabled`;
@@ -14,13 +14,11 @@ export async function read(name) {
       logger(`A site [${name}] with both extensions exists`, 'error', 'info');
       return { success: false, message: `A site [${name}] with both extensions exists` }
     } else if (confExists) {
-      const file = await readFile(filename, 'utf8');
-      //logger(file, 'debug', 'debug');
-      return { success: true, message: file }
+      await rename(filename, filenameDisabled);
+      return { success: true, message: `Site [${name}] has been disabled` }
     } else if (confExistsDisabled) {
-      const file = await readFile(filenameDisabled, 'utf8');
-      //logger(file, 'debug', 'debug');
-      return { success: true, message: file }
+      await rename(filenameDisabled, filename);
+      return { success: true, message: `Site [${name}] has been enabled` }
     } else {
       logger(`Site [${name}] does not exist`, 'error', 'debug');
       return { success: false, message: `Site [${name}] does not exist` }
