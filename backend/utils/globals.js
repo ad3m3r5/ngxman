@@ -7,9 +7,11 @@ global.__rootDir = path.join(__dirname, '..');
 
 global.ADDRESS = process.env.ADDRESS || '0.0.0.0';
 global.PORT = process.env.PORT || 3000;
+global.DATA_DIR = process.env.DATA_DIR || '/data';
 global.NGINX_CONF_DIR = process.env.NGINX_CONF_DIR || '/etc/nginx/conf.d';
-global.LOCAL_CONF_DIR = process.env.LOCAL_CONF_DIR || '/conf';
-global.CERTS_DIR = process.env.CERTS_DIR || '/certs';
+global.LOCAL_CONF_DIR = process.env.LOCAL_CONF_DIR || `${global.DATA_DIR}/conf`;
+global.CERTS_DIR = process.env.CERTS_DIR || `${global.DATA_DIR}/certs`;
+global.LOGS_DIR = process.env.LOGS_DIR || `${global.DATA_DIR}/logs`;
 
 // allow LOG_LEVEL to be any case
 if ('LOG_LEVEL' in process.env) {
@@ -59,9 +61,11 @@ globals.js:
     global.ADDRESS: ${global.ADDRESS}
     global.PORT: ${global.PORT}
     global.LOG_LEVEL: ${global.LOG_LEVEL}
+    global.DATA_DIR: ${global.DATA_DIR}
     global.NGINX_CONF_DIR: ${global.NGINX_CONF_DIR}
     global.LOCAL_CONF_DIR: ${global.LOCAL_CONF_DIR}
     global.CERTS_DIR: ${global.CERTS_DIR}
+    global.LOGS_DIR: ${global.LOGS_DIR}
 `;
 
 logger(globals, 'debug', 'debug');

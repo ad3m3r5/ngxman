@@ -1,0 +1,14 @@
+.git
+.gitignore
+.dockerignore
+README.md
+docs
+node_modules
+container/Dockerfile
+container/compose.yaml
+container/nginx.conf.default
+data
+conf
+certs
+logs
+.env

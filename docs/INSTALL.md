@@ -20,17 +20,23 @@ All of the variables below are optional, as the default work fine.
 - `LOG_LEVEL`
   - Default: `INFO`
   - Options: [Syslog](https://en.wikipedia.org/wiki/Syslog#Severity_level)
+- `DATA_DIR`
+  - Default: `/data`
 - `NGINX_CONF_DIR`
   - Default: `/etc/nginx/conf.d`
 - `LOCAL_CONF_DIR`
-  - Default: `/conf`
+  - Default: `$DATA_DIR/conf`
+- `CERTS_DIR`
+  - Default: `$DATA_DIR/certs`
+- `LOGS_DIR`
+  - Default: `$DATA_DIR/logs`
 
 ### Docker
 
 Prep:
 ```
-mkdir -p /opt/containers/ngxman/{conf,certs,logs}
-chown -R 101:101 /opt/containers/ngxman/conf
+mkdir -p /opt/containers/ngxman/data/{conf,certs,logs}
+chown -R 1000:1000 /opt/containers/ngxman/conf
 cd /opt/containers/ngxman
 ```
 
@@ -48,7 +54,7 @@ docker compose up -d
 docker run -d --restart=always \
   --name ngxman -p 80:8080 -p 443:8443 -p 3000:3000 \
   -e LOG_LEVEL=INFO \
-  -v /opt/containers/ngxman/conf:/conf \
+  -v /opt/containers/ngxman/data:/data \
   ad3m3r5/ngxman:latest
 ```
 

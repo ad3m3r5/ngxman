@@ -1,6 +1,8 @@
 # ngxman
-/conf
-/certs
+data
+conf
+certs
+logs
 
 # Logs
 logs

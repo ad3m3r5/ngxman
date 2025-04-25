@@ -10,5 +10,4 @@ services:
     environment:
       - LOG_LEVEL=INFO
     volumes:
-      - ./conf:/conf
-      - ./certs:/certs
+      - ./data:/data
