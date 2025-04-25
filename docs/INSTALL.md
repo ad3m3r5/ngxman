@@ -6,7 +6,6 @@
   - [Docker](#docker)
     - [Docker Compose](#docker-compose)
     - [Docker Run](#docker-run)
-    - [Docker Sidecar](#docker-sidecar)
   - [npm or yarn](#npm-or-yarn)
   - [Run as a Service with pm2](#run-as-a-service-with-pm2)
 
@@ -52,17 +51,6 @@ docker run -d --restart=always \
   -v /opt/containers/ngxman/conf:/conf \
   ad3m3r5/ngxman:latest
 ```
-
-#### Docker Sidecar
-
-Options:
-  1. Edit `nginx.conf` to point to a `conf.d` directory with GID ownership of 101
-    - Common location:
-      - `/etc/nginx/nginx.conf`
-  2. Adjust permissions of the `*.conf* directory to GID ownership of 101
-    - Common locations:
-      - `/etc/nginx/conf.d/`
-      - `/etc/nginx/http.d/`
 
 ### Run as a Service with pm2
 
