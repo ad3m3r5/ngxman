@@ -2,7 +2,7 @@ import { readdir } from 'fs/promises';
 import { exists } from '../utils/helpers.js';
 import { logger } from '../utils/logger.js';
 
-export async function get() {
+export async function list() {
   try {
     const confDirExists = await exists(global.NGINX_CONF_DIR, 'dir');
     if (confDirExists) {
@@ -12,8 +12,8 @@ export async function get() {
       throw new Error(`${global.NGINX_CONF_DIR} does not exist`);
     }
   } catch (error) {
-    logger('Failed to get nginx configuration files', 'error', 'error');
+    logger('Failed to get list of nginx configuration files', 'error', 'error');
     logger(error, 'error', 'debug');
-    throw new Error('Failed to get nginx configuration files');
+    throw new Error('Failed to get list of nginx configuration files');
   }
 }

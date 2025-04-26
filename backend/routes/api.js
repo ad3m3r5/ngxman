@@ -1,10 +1,10 @@
 import express from 'express';
 
-import { root, ping } from '../controllers/index.js'
+import { health, ping } from '../controllers/index.js'
 
 const router = express.Router();
 
-router.get('/', root);
+router.get('/health', health);
 router.get('/ping', ping);
 
 export default router;

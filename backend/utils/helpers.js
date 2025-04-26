@@ -12,12 +12,17 @@ export function existsSync(path, type = 'none') {
   try {
     type = type.toLocaleLowerCase();
     const stats = fs.statSync(path);
+
     if (type === 'file') {
       return stats.isFile();
     }
     if (type === 'dir' || type === 'directory') {
       return stats.isDirectory();
     }
+    if (type === 'symlink' || type === 'sym' || type === 'link' ) {
+      return stats.isSymbolicLink();
+    }
+    
     return true;
   } catch (error) {
     // returns if it does not exist or isn't accessible
@@ -40,7 +45,7 @@ export async function exists(path, type = 'none') {
   } catch (error) {
     // returns if it does not exist or isn't accessible
     //logger(error, 'error', 'debug');
-    logger(`${path} does not exist`, 'error', 'debug');
+    //logger(`${path} does not exist`, 'error', 'debug');
     return false;
   }
 }

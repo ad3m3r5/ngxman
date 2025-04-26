@@ -1,14 +1,19 @@
-.git
-.gitignore
-.dockerignore
-README.md
-docs
-node_modules
-container/Dockerfile
-container/compose.yaml
-container/nginx.conf.default
-data
+# ngxman
 conf
 certs
 logs
+data
+nginx
+frontend-build
+docs
+README.md
+container/Dockerfile
+container/compose.yaml
+container/nginx.conf.default
+
+# coomon
 .env
+.git
+.gitignore
+.dockerignore
+node_modules

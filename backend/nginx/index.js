@@ -2,7 +2,7 @@ export * from './test.js';
 export * from './dump.js';
 export * from './reload.js';
 export * from './stop.js';
-export * from './get.js';
+export * from './list.js';
 export * from './create.js';
 export * from './remove.js';
 export * from './read.js';

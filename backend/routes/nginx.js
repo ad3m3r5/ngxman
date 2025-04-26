@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { test, dump, reload, stop, get,
+import { test, dump, reload, stop, list,
   create, remove, read, update, toggle
 } from '../controllers/index.js'
 
@@ -10,7 +10,7 @@ router.get('/test', test);
 router.get('/dump', dump);
 router.get('/reload', reload);
 router.get('/stop', stop);
-router.get('/get', get);
+router.get('/list', list);
 router.put('/create', create);
 router.delete('/remove', remove);
 router.get('/read/:name', read);

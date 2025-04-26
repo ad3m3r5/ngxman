@@ -3,6 +3,7 @@ data
 conf
 certs
 logs
+frontend-build
 
 # Logs
 logs
@@ -103,18 +104,15 @@ dist
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
-# vuepress build output
+# vuepress / vite
 .vuepress/dist
-
-# vuepress v2.x temp and cache directory
 .temp
 .cache
-
-# vitepress build output
 **/.vitepress/dist
-
-# vitepress cache directory
 **/.vitepress/cache
+/cypress/videos/
+/cypress/screenshots/
+
 
 # Docusaurus cache and generated files
 .docusaurus
@@ -131,8 +129,19 @@ dist
 # TernJS port file
 .tern-port
 
-# Stores VSCode versions used for testing VSCode extensions
+# Editor directories and files
+.vscode
 .vscode-test
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo
+
 
 # yarn v2
 .yarn/cache
@@ -140,3 +149,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# other
+.DS_Store
+dist-ssr
+*.local

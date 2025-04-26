@@ -3,15 +3,15 @@ import { fileURLToPath } from 'url';
 import { logger } from './logger.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-global.__rootDir = path.join(__dirname, '..');
+global.__rootDir = path.join(__dirname, '../..');
 
 global.ADDRESS = process.env.ADDRESS || '0.0.0.0';
 global.PORT = process.env.PORT || 3000;
-global.DATA_DIR = process.env.DATA_DIR || '/data';
-global.NGINX_CONF_DIR = process.env.NGINX_CONF_DIR || '/etc/nginx/conf.d';
-global.LOCAL_CONF_DIR = process.env.LOCAL_CONF_DIR || `${global.DATA_DIR}/conf`;
-global.CERTS_DIR = process.env.CERTS_DIR || `${global.DATA_DIR}/certs`;
-global.LOGS_DIR = process.env.LOGS_DIR || `${global.DATA_DIR}/logs`;
+global.DATA_DIR = path.resolve(global.__rootDir, process.env.DATA_DIR || '/data');
+global.NGINX_CONF_DIR = path.resolve(global.__rootDir, process.env.NGINX_CONF_DIR || '/etc/nginx/conf.d');
+global.LOCAL_CONF_DIR = path.resolve(global.__rootDir, process.env.LOCAL_CONF_DIR || `${global.DATA_DIR}/conf`);
+global.CERTS_DIR = path.resolve(global.__rootDir, process.env.CERTS_DIR || `${global.DATA_DIR}/certs`);
+global.LOGS_DIR = path.resolve(global.__rootDir, process.env.LOGS_DIR || `${global.DATA_DIR}/logs`);
 
 // allow LOG_LEVEL to be any case
 if ('LOG_LEVEL' in process.env) {
@@ -68,4 +68,5 @@ globals.js:
     global.LOGS_DIR: ${global.LOGS_DIR}
 `;
 
-logger(globals, 'debug', 'debug');
+//logger(globals, 'debug', 'debug');
+console.debug(globals)

@@ -10,21 +10,39 @@ import routes from './routes/index.js';
 import notFoundHandler from './middleware/notFoundHandler.js';
 import errorHandler from './middleware/errorHandler.js';
 
-import './utils/initConfigs.js';
+import './utils/init.js';
 
 const app = express();
 
 // configure express middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(global.__rootDir, 'public')));
 
 // use express router
 app.use('/', routes);
+
+// serve vue site
+if (process.env.NODE_ENV !== 'development') {
+  try {
+    const frontendPath = path.join(global.__rootDir, '/frontend-build');
+    const frontendIndex = path.join(frontendPath, 'index.html');
+
+    app.use(express.static(frontendPath));
+
+    app.get('/{*any}', (req, res) => {
+      res.sendFile(frontendIndex);
+    });
+  } catch (error) {
+    logger(error, 'error', 'error');
+    throw new Error("Unable to serve frontend-build directory");
+  }
+}
+
 // error handling
 app.use(notFoundHandler);
 app.use(errorHandler);
 
+// start http server
 let server = http.createServer(app);
 server.listen(global.PORT, global.ADDRESS);
 

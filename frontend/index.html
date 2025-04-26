@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" id="theme-color" content="#212121" />
+    <meta name="description" content="An nginx site manager" />
+    <title>ngxman</title>
+    <style>
+      .noscript-banner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffefef;
+        color: #a10000;
+        border: 1px solid #d9534f;
+        padding: 16px 24px;
+        max-width: 90vw;
+        width: fit-content;
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 16px;
+        border-radius: 4px;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <div class="noscript-banner">
+        ⚠️ JavaScript is disabled in your browser. <br /> Please enable JavaScript to use this site properly.
+      </div>
+    </noscript>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -36,9 +36,9 @@ export const stop = async (req, res) => {
   });
 }
 
-// get
-export const get = async (req, res) => {
-  let { success, message } = await nginx.get();
+// list
+export const list = async (req, res) => {
+  let { success, message } = await nginx.list();
 
   if (!success) {
     return res.status(400).json({

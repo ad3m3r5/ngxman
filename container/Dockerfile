@@ -2,6 +2,11 @@ ARG NODE_VERSION=22
 ARG ALPINE_VERSION=3.21
 
 FROM node:${NODE_VERSION}-alpine AS node
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+COPY frontend frontend
+RUN npm i && npm run build:frontend
+  
 FROM nginxinc/nginx-unprivileged:alpine${ALPINE_VERSION}
 
 # Copy node
@@ -43,11 +48,10 @@ COPY --chown=node:web package.json ./package.json
 COPY --chown=node:web package-lock.json ./package-lock.json
 RUN npm ci --omit=dev
 COPY --chown=node:web backend ./backend
-COPY --chown=node:web frontend ./frontend
+COPY --from=node --chown=node:web frontend-build ./frontend-build
 COPY --chown=node:web --chmod=0775 container/init.sh $APP_DIR/init.sh
 
 EXPOSE 8080 8443 3000
 
 # Start nginx and ngxman
-#CMD ["sh", "-c", "nginx && node server.js"]
 ENTRYPOINT ["/bin/sh", "-c", "$ENTRYPOINT"]
