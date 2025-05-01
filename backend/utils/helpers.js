@@ -1,7 +1,7 @@
 import { stat, symlink } from 'fs/promises';
 import fs from 'fs';
 import { exec as execSync } from 'child_process';
-import { promisify } from 'util';
+import { promisify } from 'utils';
 import { logger } from './logger.js';
 
 // exec

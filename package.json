@@ -6,13 +6,16 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./backend/server.js",
-    "dev": "concurrently -k -r \"wait-on tcp:5000 && npm run dev:backend \" \"npm run dev:frontend\"",
+    "dev": "concurrently -k -r \"npm run dev:backend \" \"npm run dev:frontend\"",
     "dev:backend": "cross-env NODE_ENV=development nodemon ./backend/server.js",
     "dev:frontend": "cross-env NODE_ENV=development vite --host --config ./frontend/vite.config.js",
     "build:frontend": "vite build --config ./frontend/vite.config.js",
     "docker": "npm run build:docker && npm run start:docker",
-    "start:docker": "docker run --rm -it --name ngxman -p 3000:3000 -p 8080:8080 -p 8443:8443 -v ./data:/data ngxman",
-    "build:docker": "docker build -f container/Dockerfile -t ngxman:latest ."
+    "start:docker": "docker run --rm -it --name ngxman -p 3000:3000 -p 8080:8080 -p 8443:8443 -v ./data:/data ngxman:latest",
+    "start:docker:dev": "docker run --rm -it --name ngxman -p 3000:3000 -p 3001:3001 -p 8080:8080 -p 8443:8443 -v ./data:/data -v ./backend:/app/backend -v ./frontend:/app/frontend ngxman:dev",
+    "build:docker": "docker build -f container/Dockerfile -t ngxman:latest .",
+    "build:docker:dev": "docker build -f container/Dockerfile.dev -t ngxman:dev .",
+    "dev:docker": "npm run build:docker:dev && npm run start:docker:dev"
   },
   "author": "ad3m3r5",
   "license": "AGPL-3.0",
@@ -24,8 +27,9 @@
     "@vitejs/plugin-vue": "^5.2.3",
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
+    "nodemon": "^3.1.10",
     "vite": "^6.2.4",
     "vue": "^3.5.13",
-    "wait-on": "^8.0.3"
+    "vue-router": "^4.5.1"
   }
 }
